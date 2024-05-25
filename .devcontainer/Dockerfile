@@ -20,5 +20,5 @@ COPY requirements-dev.txt .
 RUN pip install --no-cache-dir -r requirements-dev.txt
 
 # install notebooks related depencencies
-COPY notebooks/.devcontainer/requirements.txt .
+COPY .devcontainer/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
