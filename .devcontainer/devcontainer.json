@@ -25,7 +25,8 @@
                 "github.copilot-chat",
                 "ms-python.python",
                 "ms-vsliveshare.vsliveshare",
-                "eamodio.gitlens"
+                "eamodio.gitlens",
+                "ms-azuretools.vscode-docker"
             ],
             "settings": {
                 "python.defaultInterpreterPath": "/usr/local/bin/python",
