@@ -11,8 +11,8 @@
             "configureZshAsDefaultShell": true,
             "installOhMyZsh": true,
             "upgradePackages": false,
-            "username": "devuser",
-        },
+            "username": "devuser"
+        }
     },
     "runArgs": [
         "--env-file",
@@ -43,7 +43,7 @@
                 "redhat.vscode-yaml",
                 "streetsidesoftware.code-spell-checker",
                 "timonwong.shellcheck",
-                "charliermarsh.ruff",
+                "charliermarsh.ruff"
             ],
             "settings": {
                 "autoDocstring.docstringFormat": "google",
@@ -64,7 +64,7 @@
                     "source.fixAll": true,
                     "source.organizeImports": true
                 }
-            },
+            }
         }
-    },
+    }
 }
