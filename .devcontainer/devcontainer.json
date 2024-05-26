@@ -1,7 +1,7 @@
 {
     "build": {
         // use root directory as build context so that requirements-dev.txt is accessible during build
-        "context": "../../",
+        "context": "../",
         "dockerfile": "Dockerfile"
     },
     "shutdownAction": "none",

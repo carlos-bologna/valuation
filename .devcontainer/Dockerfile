@@ -18,5 +18,5 @@ ENV PATH=$PATH:/home/$USERNAME/.local/bin
 RUN pip install pip --upgrade
 
 # install python depencencies
-COPY requirements.txt .
+COPY .devcontainer/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
