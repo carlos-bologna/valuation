@@ -7,8 +7,8 @@ def main():
     data_source_folder = "/workspaces/valuation/data"
     output_filename = "dfp.duckdb"
     db_path = os.path.join(data_source_folder, output_filename)
-    source_table = "bronze_dfp_dre"
-    destination_table = "silver_dfp_dre"
+    source_table = "bronze_dfp_bp"
+    destination_table = "silver_dfp_bp"
 
     # Create or connect to the DuckDB database
     conn = duckdb.connect(database=db_path, read_only=False)
@@ -22,7 +22,6 @@ def main():
     SELECT
         *,
         CAST(DT_REFER AS DATE) AS DT_REFER,
-        CAST(DT_INI_EXERC AS DATE) AS DT_INI_EXERC,
         CAST(DT_FIM_EXERC AS DATE) AS DT_FIM_EXERC,
         CAST(VERSAO AS INTEGER) AS VERSAO,
         CAST(CD_CVM AS INTEGER) AS CD_CVM,

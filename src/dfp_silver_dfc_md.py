@@ -7,8 +7,8 @@ def main():
     data_source_folder = "/workspaces/valuation/data"
     output_filename = "dfp.duckdb"
     db_path = os.path.join(data_source_folder, output_filename)
-    source_table = "bronze_dfp_dre"
-    destination_table = "silver_dfp_dre"
+    source_table = "bronze_dfp_dfc_md"
+    destination_table = "silver_dfp_dfc_md"
 
     # Create or connect to the DuckDB database
     conn = duckdb.connect(database=db_path, read_only=False)

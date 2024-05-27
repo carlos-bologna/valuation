@@ -2,6 +2,7 @@ import glob
 import os
 import pandas as pd
 import duckdb
+from common.transformations import drop_tables_from_duckdb
 
 def get_csv_file_paths(source_folder, patterns):
     """Retrieve all CSV file paths that match the given patterns."""
@@ -9,16 +10,6 @@ def get_csv_file_paths(source_folder, patterns):
     for pattern in patterns:
         file_paths.extend(glob.glob(os.path.join(source_folder, pattern)))
     return file_paths
-
-def drop_tables_from_duckdb(tables, conn):
-    """Drop a list of tables from a DuckDB connection."""
-    try:
-        for table in tables:
-            print(f"Dropping table {table}")
-            conn.execute(f"DROP TABLE IF EXISTS {table}")
-        print("All specified tables have been dropped successfully.")
-    except Exception as e:
-        print(f"Error dropping tables: {e}")
 
 def read_and_insert_to_duckdb(table, file_path, conn):
     """Read a CSV file and insert its data into DuckDB."""
