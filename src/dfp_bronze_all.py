@@ -10,11 +10,22 @@ def get_csv_file_paths(source_folder, patterns):
         file_paths.extend(glob.glob(os.path.join(source_folder, pattern)))
     return file_paths
 
+def drop_tables_from_duckdb(tables, conn):
+    """Drop a list of tables from a DuckDB connection."""
+    try:
+        for table in tables:
+            print(f"Dropping table {table}")
+            conn.execute(f"DROP TABLE IF EXISTS {table}")
+        print("All specified tables have been dropped successfully.")
+    except Exception as e:
+        print(f"Error dropping tables: {e}")
+
 def read_and_insert_to_duckdb(table, file_path, conn):
     """Read a CSV file and insert its data into DuckDB."""
     try:
         print(f"Importing file {file_path} into {table}")
         df = pd.read_csv(file_path, sep=';', encoding='ISO-8859-1')
+
         # Insert data into the 'bronze' table
         conn.execute(f"CREATE TABLE IF NOT EXISTS {table} AS SELECT * FROM df LIMIT 0")
         conn.execute(f"INSERT INTO {table} SELECT * FROM df")
@@ -45,6 +56,10 @@ def main():
     # Create or connect to the DuckDB database
     conn = duckdb.connect(database=db_path, read_only=False)
 
+    # Drop all tables the clear up the database
+    tables_list = ["bronze_dfp_bp", "bronze_dfp_dre", "bronze_dfp_dfc_md", "bronze_dfp_dfc_mi"]
+    drop_tables_from_duckdb(tables_list, conn)
+
     # Define the file patterns to search for BP (Balance Sheet)
     file_patterns = [
         "*_cia_aberta_BPA_con_*.csv",
@@ -70,11 +85,10 @@ def main():
             table_name = "bronze_dfp_dfc_md"
         elif "_DFC_MI_" in file_path:
             table_name = "bronze_dfp_dfc_mi"
-        
+
         read_and_insert_to_duckdb(table_name, file_path, conn)
 
     # Drop duplicates from tables
-    tables_list = ["bronze_dfp_bp", "bronze_dfp_dre", "bronze_dfp_dfc_md", "bronze_dfp_dfc_mi"]
     for table in tables_list:
         # Drop duplicates from the table
         drop_duplicates_from_table(table, conn)
