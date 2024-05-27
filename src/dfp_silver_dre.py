@@ -45,6 +45,17 @@ def main():
     #Remove suffix "_1" from the columns.
     remove_suffix(columns, destination_table, conn)
 
+    # Add new columns
+    conn.execute(f"""
+        ALTER TABLE {destination_table}
+        ADD COLUMN PERIODO_MESES INTEGER
+        """)
+
+    conn.execute(f"""
+        UPDATE {destination_table}
+        SET PERIODO_MESES = date_diff('month', DT_INI_EXERC, DT_FIM_EXERC) + 1
+        """)
+
     # Close the DuckDB connection
     conn.close()
 
