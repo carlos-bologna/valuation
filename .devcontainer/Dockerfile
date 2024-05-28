@@ -5,7 +5,7 @@ USER root
 # Install base packages for Duckdb
 RUN dpkg --add-architecture amd64
 RUN apt update
-RUN apt-get install -y wget binutils:amd64 libwebkit2gtk-4.0-37:amd64
+RUN apt-get install -y wget binutils:amd64 libwebkit2gtk-4.0-37:amd64 
 
 # install duckdb command-line tool
 RUN wget https://github.com/duckdb/duckdb/releases/download/v0.10.3/duckdb_cli-linux-amd64.zip \
@@ -16,7 +16,7 @@ RUN wget https://github.com/duckdb/duckdb/releases/download/v0.10.3/duckdb_cli-l
 
 # This block must be here, after Duckdb instalation
 RUN apt update
-RUN apt-get install -y gcc python3-dev
+RUN apt-get install -y gcc python3-dev build-essential
 
 # create non-root user and set the default user
 ARG USERNAME=devuser
