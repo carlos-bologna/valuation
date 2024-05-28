@@ -14,6 +14,10 @@ RUN wget https://github.com/duckdb/duckdb/releases/download/v0.10.3/duckdb_cli-l
     && rm duckdb_cli-linux-amd64.zip \
     && rm -rf /var/lib/apt/lists/*
 
+# This block must be here, after Duckdb instalation
+RUN apt update
+RUN apt-get install -y gcc python3-dev
+
 # create non-root user and set the default user
 ARG USERNAME=devuser
 ARG USER_UID=1000
