@@ -27,7 +27,8 @@
                 "ms-vsliveshare.vsliveshare",
                 "eamodio.gitlens",
                 "ms-azuretools.vscode-docker",
-                "mechatroner.rainbow-csv"
+                "mechatroner.rainbow-csv",
+                "ms-toolsai.jupyter"
             ],
             "settings": {
                 "python.defaultInterpreterPath": "/usr/local/bin/python",
