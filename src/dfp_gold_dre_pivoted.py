@@ -34,7 +34,7 @@ def main():
             PIVOT df_current_values
             ON DS_CONTA IN ({account_str})
             USING sum(VL_CONTA)
-            GROUP BY CNPJ_CIA, DENOM_CIA, GRUPO_DFP, MOEDA, ESCALA_MOEDA, DT_REFER, DT_INI_EXERC, DT_FIM_EXERC, VERSAO, CD_CVM
+            GROUP BY CNPJ_CIA, DENOM_CIA, GRUPO_DFP, MOEDA, ESCALA_MOEDA, DT_REFER, DT_INI_EXERC, DT_FIM_EXERC, VERSAO, CD_CVM, PERIODO_MESES
         )
 
     """).fetchdf()
