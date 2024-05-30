@@ -9,6 +9,13 @@ def main():
     db_path = os.path.join(data_source_folder, output_filename)
     source_table = "silver_dfp_dre"
     destination_table = "gold_dfp_dre_pivoted"
+    account_list = [
+        ("Receita de Venda de Bens e/ou Serviços", "RECEITA"),
+        ("Resultado Antes do Resultado Financeiro e dos Tributos", "EBIT"),
+        ("Resultado Antes dos Tributos sobre o Lucro", "LAIR")
+    ]
+    # Extract the first position of each tuple and concatenate them in a variable
+    account_str = ', '.join([f'"{item[0]}"' for item in account_list])
 
     # Create or connect to the DuckDB database
     conn = duckdb.connect(database=db_path, read_only=False)
@@ -25,35 +32,24 @@ def main():
     df_pivot = conn.sql(f"""
         FROM(
             PIVOT df_current_values
-            ON DS_CONTA IN ('Receita de Venda de Bens e/ou Serviços')
+            ON DS_CONTA IN ({account_str})
             USING sum(VL_CONTA)
             GROUP BY CNPJ_CIA, DENOM_CIA, GRUPO_DFP, MOEDA, ESCALA_MOEDA, DT_REFER, DT_INI_EXERC, DT_FIM_EXERC, VERSAO, CD_CVM
         )
 
-    """)
+    """).fetchdf()
 
-    df_pivot = conn.sql('SELECT *, "Receita de Venda de Bens e/ou Serviços" AS RECEITA FROM df_pivot')
+    # Create a dictionary from the list for easy lookup
+    rename_dict = dict(account_list)
 
-    columns = [item for item in df_pivot.columns if item != 'Receita de Venda de Bens e/ou Serviços']
-    # Join the columns into a string separated by commas
-    columns_str = ', '.join(columns)
+    # Rename the columns in the DuckDB dataframe
+    df_pivot.rename(columns=rename_dict, inplace=True)
 
-    df_next_revenue = conn.sql(f"""
-        SELECT
-            {columns_str},
-            lead(RECEITA)
-                OVER (
-                    PARTITION BY CD_CVM
-                    ORDER BY DT_REFER
-                ) AS RECEITA_FUTURA
-        FROM df_pivot
-    """)
-
-    # Write table
-    # Clear the destination table dropping it
+    # Clear the destination table dropping it, then write the new one.
     drop_tables_from_duckdb([destination_table], conn)
-    # Create the new table
-    conn.execute(f"CREATE TABLE {destination_table} AS SELECT * FROM df_next_revenue")
+
+    # Create the new table in Duckdb from the dataframe.
+    conn.execute(f"CREATE TABLE {destination_table} AS SELECT * FROM df_pivot")
 
     # Close the DuckDB connection
     conn.close()

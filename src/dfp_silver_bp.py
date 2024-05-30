@@ -44,6 +44,15 @@ def main():
     #Remove suffix "_1" from the columns.
     remove_suffix(columns, destination_table, conn)
 
+    # Unify the currency scale.
+    conn.execute(f"""
+        UPDATE {destination_table}
+        SET
+            VL_CONTA = VL_CONTA / 1000,
+            ESCALA_MOEDA = 'MIL'
+        WHERE ESCALA_MOEDA = 'UNIDADE'
+        """)
+
     # Close the DuckDB connection
     conn.close()
 

@@ -56,6 +56,15 @@ def main():
         SET PERIODO_MESES = date_diff('month', DT_INI_EXERC, DT_FIM_EXERC) + 1
         """)
 
+    # Unify the currency scale.
+    conn.execute(f"""
+        UPDATE {destination_table}
+        SET
+            VL_CONTA = VL_CONTA / 1000,
+            ESCALA_MOEDA = 'MIL'
+        WHERE ESCALA_MOEDA = 'UNIDADE'
+        """)
+
     # Close the DuckDB connection
     conn.close()
 

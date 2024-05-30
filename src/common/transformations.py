@@ -44,3 +44,4 @@ def remove_suffix(columns, table, conn):
         ALTER TABLE {table} RENAME COLUMN {column} TO {new_column};
         """
         conn.execute(rename_query)
+
