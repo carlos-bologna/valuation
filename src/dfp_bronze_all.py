@@ -39,7 +39,7 @@ def drop_duplicates_from_table(table, conn):
 
 def main():
     # Define the folder paths and output filename
-    data_source_folder = "/workspaces/valuation/data/staging"
+    data_source_folder = "/workspaces/valuation/data/staging/dfp"
     data_destination_folder = "/workspaces/valuation/data"
     output_filename = "dfp.duckdb"
     db_path = os.path.join(data_destination_folder, output_filename)

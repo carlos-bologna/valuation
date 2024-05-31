@@ -14,7 +14,7 @@ from datetime import datetime
 
 # Directory paths for storing zip files and extracted data
 ZIP_FOLDER = "/tmp/zip"
-DATA_FOLDER = "/workspaces/valuation/data/staging"
+DATA_FOLDER = "/workspaces/valuation/data/staging/dfp"
 START_YEAR = 2016
 CURRENT_YEAR = datetime.now().year
 INTERVAL_TYPES = ["itr", "dfp"]
