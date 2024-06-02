@@ -32,6 +32,7 @@
                 "ms-toolsai.tensorboard"
             ],
             "settings": {
+                "tensorBoard.logdir": "/workspaces/valuation/data/staging/tensorboard",
                 "python.defaultInterpreterPath": "/usr/local/bin/python",
                 "[python]": {
                     "editor.codeActionsOnSave": {
