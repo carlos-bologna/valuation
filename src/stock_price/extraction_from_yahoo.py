@@ -20,8 +20,10 @@ def setup_directories(data_folder, ticker):
 def extract_data(ticker, start_date, end_date, data_folder):
     # Download historical price data for the ticker
     df = yf.download(ticker, start=start_date, end=end_date)
+    # Add the ticker as column
+    df["Ticker"] = ticker
     # Save the data to a CSV file
-    destination_path = os.path.join(data_folder, ticker, "historical_price.csv")
+    destination_path = os.path.join(data_folder, ticker, "historical_prices.csv")
     df.to_csv(destination_path)
 
 def main():

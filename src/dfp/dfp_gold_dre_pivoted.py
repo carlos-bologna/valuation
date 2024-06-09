@@ -1,5 +1,12 @@
-import os
+import os, sys
 import duckdb
+
+# Get the parent directory
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+
+# Add the parent directory to the system path
+sys.path.append(parent_dir)
+
 from common.transformations import drop_tables_from_duckdb
 
 def main():

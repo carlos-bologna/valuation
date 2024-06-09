@@ -45,3 +45,15 @@ def remove_suffix(columns, table, conn):
         """
         conn.execute(rename_query)
 
+def drop_duplicates_from_table(table, conn):
+    """Remove duplicate rows from the specified table in DuckDB."""
+    try:
+        conn.execute(f"""
+            CREATE TABLE {table}_temp AS
+            SELECT DISTINCT * FROM {table};
+            DROP TABLE {table};
+            ALTER TABLE {table}_temp RENAME TO {table};
+        """)
+        print(f"Removed duplicates from {table}")
+    except Exception as e:
+        print(f"Error removing duplicates from {table}: {e}")
