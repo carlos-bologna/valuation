@@ -7,6 +7,6 @@ jupyter==1.0.0
 scikit-learn==1.5.0
 torch==2.3.0
 tensorboard==2.16.2
-yfinance==0.2.40
+investpy==1.0.8
 prophet==1.1.5
 plotly==5.22.0
