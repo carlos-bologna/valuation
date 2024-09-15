@@ -3,12 +3,19 @@ import shutil
 import yfinance as yf
 from datetime import date
 import sys
+import yaml
 
+CONFIG_FILE = "/workspaces/valuation/config.yaml"
 # Directory paths for storing zip files and extracted data
 DATA_FOLDER = "/workspaces/valuation/data/staging/stocks"
-START_DATE = "2016-01-01"
 END_DATE = date.today()
-DEFAULT_TICKER = "VALE3.SA"
+
+# Load config file
+with open(CONFIG_FILE, 'r') as config_file:
+    config = yaml.safe_load(config_file)
+
+START_DATE = config['extraction_start_date']
+DEFAULT_TICKER = config['ticker']
 
 def setup_directories(data_folder, ticker):
     # Create directory for the ticker, remove if it exists
@@ -29,7 +36,7 @@ def extract_data(ticker, start_date, end_date, data_folder):
 def main():
     # Get the ticker from system arguments, default to DEFAULT_TICKER
     ticker = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_TICKER
-    
+
     setup_directories(DATA_FOLDER, ticker)
     extract_data(ticker, START_DATE, END_DATE, DATA_FOLDER)
 

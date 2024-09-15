@@ -10,3 +10,4 @@ tensorboard==2.16.2
 investpy==1.0.8
 prophet==1.1.5
 plotly==5.22.0
+yfinance==0.2.43

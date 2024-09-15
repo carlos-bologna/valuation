@@ -34,7 +34,7 @@ To set up the project using a Dev Container, follow these steps:
    - Once in VS Code, a prompt may appear asking if you want to reopen the project in a Dev Container. Click "Reopen in Container".
    - If the prompt does not appear, open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on macOS) and select:
      ```
-     Dev Containers: Reopen in Container
+     >Dev Containers: Reopen in Container
      ```
 
 4. **Wait for the container to build**: The initial build may take a few minutes as it installs all necessary dependencies and sets up the environment inside the container.
@@ -53,17 +53,47 @@ jupyter notebook
 
 Now, you can access the notebooks in your browser and start using the project.
 
+
+## Configuration
+
+Before running the project, you need to set up the configuration file. The config file is located in the main folder and is named `config.yaml`.
+
+### Setting up config.yaml
+
+1. **Locate the file**: Find `config.yaml` in the root directory of the project.
+
+2. **Edit the file**: Open `config.yaml` in a text editor and modify the desired parameters.
+
+3. **Save the file**: After making your changes, save the `config.yaml` file.
+
+Make sure to adjust these parameters according to your specific requirements and file structure.
+
 ## Usage
 
-1. **Data Preparation**: Ensure you have the historical stock data for the target company (e.g., VALE3) in a CSV file.
+1. **ETL (Extract, Transform and Load)**: Ensure you have the historical stock data for the target company (e.g., VALE3) in a CSV file.
 
-2. **Run the Notebooks**: Use Jupyter Notebook to run the provided scripts for data preprocessing, model training, and forecasting.
+   ```bash
+   $ python src/stock_price/extraction_from_yahoo.py
+   $ python src/stock_price/bronze.py
+   $ python src/stock_price/silver.py
+   $ python src/stock_price/gold_stock_price_labeled.py
+   ```
+
+2. **Data Preparation**: Use Jupyter Notebook to run the provided scripts for data preprocessing.
 
    ```bash
    jupyter notebook
    ```
 
-3. **Model Evaluation**: The notebook will output graphs and performance metrics, comparing different models' accuracy.
+   Run the notebook **preprocess.ipynb**
+
+3. **Model Training**: Use Jupyter Notebook to run the provided scripts for model training and forecasting.
+
+   ```bash
+   jupyter notebook
+   ```
+
+   Run the notebook **train.ipynb**
 
 ## Contributing
 
