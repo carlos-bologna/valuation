@@ -1,4 +1,4 @@
 extraction_start_date: "2016-01-01"
 seed: 1407
-test_size_in_days: 180
+test_size_in_days: 60
 ticker: "VALE3.SA"
