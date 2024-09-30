@@ -4,6 +4,9 @@ import yfinance as yf
 from datetime import date
 import sys
 import yaml
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
 
 CONFIG_FILE = "/workspaces/valuation/config.yaml"
 # Directory paths for storing zip files and extracted data
@@ -33,12 +36,29 @@ def extract_data(ticker, start_date, end_date, data_folder):
     destination_path = os.path.join(data_folder, ticker, "historical_prices.csv")
     df.to_csv(destination_path)
 
-def main():
-    # Get the ticker from system arguments, default to DEFAULT_TICKER
-    ticker = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_TICKER
+
+@app.route('/extract/<ticker>', methods=['GET'])
+def extract_ticker_data(ticker):
+    try:
+        setup_directories(DATA_FOLDER, ticker)
+        extract_data(ticker, START_DATE, END_DATE, DATA_FOLDER)
+        return jsonify({"message": f"Data extracted successfully for {ticker}"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+def run_api():
+    app.run(host='0.0.0.0', port=5000)
+
+def main(ticker):
 
     setup_directories(DATA_FOLDER, ticker)
     extract_data(ticker, START_DATE, END_DATE, DATA_FOLDER)
 
 if __name__ == "__main__":
-    main()
+    #Just check if there is any argument, if not, run the API
+    if len(sys.argv) > 1:
+        # Get the ticker from the constant
+        ticker = DEFAULT_TICKER
+        main(ticker)
+    else:
+        run_api()
