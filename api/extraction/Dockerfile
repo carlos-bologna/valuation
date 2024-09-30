@@ -11,7 +11,7 @@ COPY /api/extraction/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the script into the container
-COPY /src/stock_price/extraction_from_yahoo.py .
+COPY src/stock_price/extraction_from_yahoo.py .
 
 # Set the environment variable for Python to run in unbuffered mode
 ENV PYTHONUNBUFFERED=1
