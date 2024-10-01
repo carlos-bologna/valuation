@@ -4,8 +4,8 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'api/extraction/**'
-      - 'src/stock_price/extraction_from_yahoo.py'
+      - 'api/**'
+      - 'src/stock_price/**'
   pull_request:
     branches: [ main ]
     paths:
