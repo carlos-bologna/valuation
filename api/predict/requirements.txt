@@ -1,0 +1,6 @@
+duckdb==0.10.3
+pandas==2.2.2
+requests==2.32.2
+prophet==1.1.5
+yfinance==0.2.43
+Flask==3.0.3

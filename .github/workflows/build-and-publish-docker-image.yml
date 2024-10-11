@@ -9,13 +9,13 @@ on:
   pull_request:
     branches: [ main ]
     paths:
-      - 'api/extraction/**'
-      - 'src/stock_price/extraction_from_yahoo.py'
+      - 'api/**'
+      - 'src/stock_price/**'
   workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/extraction-api
+  IMAGE_NAME: ${{ github.repository }}/predict
 
 jobs:
   build-and-push-image:
@@ -45,16 +45,7 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         context: .
-        file: api/extraction/Dockerfile
+        file: api/predict/Dockerfile
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-
-    - name: Build and push Docker image for transformation
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        file: api/transformation/Dockerfile
-        push: ${{ github.event_name != 'pull_request' }}
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}  

@@ -5,16 +5,16 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy the requirements file into the container
-COPY /api/extraction/requirements.txt .
+COPY /api/predict/requirements.txt .
 
 # Install the required packages
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the script into the container
-COPY src/stock_price/extraction_from_yahoo.py .
+COPY src/stock_price/*.py .
 
 # Set the environment variable for Python to run in unbuffered mode
 ENV PYTHONUNBUFFERED=1
 
 # Run the script when the container launches
-CMD ["python", "extraction_from_yahoo.py"]
+CMD ["python", "predict.py"]
