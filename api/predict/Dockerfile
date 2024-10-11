@@ -29,5 +29,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Set the environment variable for Python to run in unbuffered mode
 ENV PYTHONUNBUFFERED=1
 
+# Expose port 5000 for the Flask application
+EXPOSE 5000
+
 # Run the script when the container launches
 CMD ["python", "predict.py"]
