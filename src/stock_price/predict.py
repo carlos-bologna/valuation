@@ -6,6 +6,8 @@ import bronze
 import silver
 import gold_stock_price_labeled
 import extraction_from_yahoo
+import numpy as np
+np.float_ = np.float64
 from prophet import Prophet
 import pandas as pd
 
