@@ -5,3 +5,4 @@ prophet==1.1.5
 yfinance==0.2.43
 Flask==3.0.3
 PyYAML==6.0.2
+plotly==5.22.0
