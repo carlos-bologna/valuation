@@ -6,11 +6,13 @@ on:
     paths:
       - 'api/**'
       - 'src/stock_price/**'
+      - 'src/common/**'
   pull_request:
     branches: [ main ]
     paths:
       - 'api/**'
       - 'src/stock_price/**'
+      - 'src/common/**'
   workflow_dispatch:
 
 env:
