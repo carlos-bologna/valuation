@@ -23,11 +23,7 @@ DATA_SOURCE_TABLE = "gold_stock_price_labeled"
 with open(CONFIG_FILE, 'r') as config_file:
     config = yaml.safe_load(config_file)
 
-SEED = config['seed']
-TICKER = config['ticker']
 LOOK_FORWARD_DAYS = config['test_size_in_days'] # Number of days in the tail.
-
-DATA_DESTINATION_FOLDER = os.path.join("/workspaces/valuation/data/staging/stocks", TICKER)
 
 def get_training_data(ticker):
 
@@ -35,10 +31,10 @@ def get_training_data(ticker):
     db_path = os.path.join(DATA_SOURCE_FOLDER, DATA_SOURCE_FILENAME)
 
     # Create or connect to the DuckDB database
-    conn = duckdb.connect(database=db_path, read_only=False)
+    conn = duckdb.connect(database=db_path, read_only=True)
 
     # Read data
-    df = conn.sql(f"SELECT * FROM {DATA_SOURCE_TABLE} WHERE Ticker = '{TICKER}'").fetchdf()
+    df = conn.sql(f"SELECT * FROM {DATA_SOURCE_TABLE} WHERE Ticker = '{ticker}'").fetchdf()
 
     # Close the DuckDB connection
     conn.close()
